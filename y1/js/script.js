@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // !! PENTING !! Ganti nilai di bawah ini dengan kredensial Anda sendiri
     // !! dari Google Cloud Console agar fitur Google Drive berfungsi.
-    const GOOGLE_CLIENT_ID = 'YOUR_CLIENT_ID.apps.googleusercontent.com'; 
-    const GOOGLE_API_KEY = 'YOUR_GOOGLE_API_KEY'; // Bisa sama dengan GEMINI_API_KEY jika dari project yang sama
+    const GOOGLE_CLIENT_ID = '719464254563-lanu41fmths6824822jgese38lusrcum.apps.googleusercontent.com'; 
+    const GOOGLE_API_KEY = 'AIzaSyDREGjfiQyBm2P7t9J5JdHARC1G2tBkrg8'; // Bisa sama dengan GEMINI_API_KEY jika dari project yang sama
     
     const SCOPES = 'https://www.googleapis.com/auth/drive.file';
 
