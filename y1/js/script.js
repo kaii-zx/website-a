@@ -11,14 +11,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const SCOPES = 'https://www.googleapis.com/auth/drive.file';
 
     // --- Data Aplikasi ---
-    const playlist = [
-        { title: "All I Want", artist: "Kodaline", art: "https://i.scdn.co/image/ab67616d0000b2738d492c3140549c7162453e21", lyrics: [{time: 1, text: "All I want is nothing more"}, {time: 5, text: "To hear you knocking at my door"}] },
-        { title: "It's You", artist: "Ali Gatie", art: "https://i.scdn.co/image/ab67616d0000b27339a0591a53de0853c64b5a9c", lyrics: [{time: 1, text: "It's you, it's always you"}, {time: 5, text: "If I'm ever gonna fall in love I know it's gon' be you"}] },
-        { title: "Don't You Remember", artist: "Adele", art: "https://i.scdn.co/image/ab67616d0000b27321186b68b5a5965457a15d5a", lyrics: [{time: 1, text: "When was the last time you thought of me?"}, {time: 5, text: "Or have you completely erased me from your memory?"}] },
-        { title: "Here With Me", artist: "d4vd", art: "https://i.scdn.co/image/ab67616d0000b273e33333b5f32371490226b015", lyrics: [{time: 1, text: "I don't care how long it takes"}, {time: 5, text: "As long as I'm with you, I've got a smile on my face"}] },
-        { title: "If I Knew", artist: "Bruno Mars", art: "https://i.scdn.co/image/ab67616d0000b273a0378c668a528c306d8a87b5", lyrics: [{time: 1, text: "I'd never let you go"}, {time: 5, text: "I'd hold you in my arms forever and a day"}] },
-        { title: "Walking Back Home", artist: "Vira Talisa", art: "https://i.scdn.co/image/ab67616d0000b2735d4ef574042838cec1234979", lyrics: [{time: 1, text: "The night's still young, let's have some fun"}, {time: 5, text: "My weary heart has been undone"}] }
-    ];
+   const playlist = [
+    { 
+        title: "All I Want", 
+        spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3HHqVJHqwgkxWhOQ4MhLB6?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
+    },
+    { 
+        title: "It's You", 
+        spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0NlGoUyOJSuSHmngoibVAs?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
+    },
+    { 
+        title: "Don't You Remember", 
+        spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1CRtJS94Hq3PbBZT9LuF90?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
+    },
+    { 
+        title: "Here With Me", 
+        spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5LrN7yUQAzvthd4QujgPFr?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
+    },
+    { 
+        title: "If I Knew", 
+        spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7lXOqE38eCr979gp27O5wr?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
+    },
+    { 
+        title: "Walking Back Home", 
+        spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7lu5yyLdgRTMTnYw8yCWvM?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
+    }
+];
+
     const galleryImages = [
         { src: "https://placehold.co/600x600/000000/FFFFFF?text=1" }, 
         { src: "https://placehold.co/600x600/1a1a1a/FFFFFF?text=2" },
