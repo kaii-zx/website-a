@@ -292,37 +292,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const SCOPES = 'https://www.googleapis.com/auth/drive.file';
 
     // --- Data Aplikasi (Diperbarui dengan struktur kartu kustom) ---
-    const playlist = [
-        {
-            title: "All I Want",
-            artist: "Kodaline",
-            cover: "https://placehold.co/400x400/34495e/ffffff?text=All+I+Want",
-            audioSrc: "", // Biarkan kosong jika tidak ada file audio
-            lyrics: "All I want is nothing more\nTo hear you knocking at my door\n'Cause if I could see your face once more\nI could die a happy man I'm sure"
+     const playlist = [
+        { 
+            title: "All I Want", 
+            spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3HHqVJHqwgkxWhOQ4MhLB6?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
         },
-        {
-            title: "It's You",
-            artist: "Sezairi",
-            cover: "https://placehold.co/400x400/9b59b6/ffffff?text=It's+You",
-            audioSrc: "",
-            lyrics: "Here we are, under the moonlight\nI'm the one for you, you're the one for me\nAnd it's you, it's always you\nIf I'm ever gonna fall in love I know it's gon' be you"
+        { 
+            title: "It's You", 
+            spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0NlGoUyOJSuSHmngoibVAs?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
         },
-        {
-            title: "Here With Me",
-            artist: "d4vd",
-            cover: "https://placehold.co/400x400/2ecc71/ffffff?text=Here+With+Me",
-            audioSrc: "",
-            lyrics: "And I don't care how long it takes\nAs long as I'm with you, I've got a smile on my face\nSave your tears, it'll be okay\nAll I know is you're here with me"
+        { 
+            title: "Don't You Remember", 
+            spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1CRtJS94Hq3PbBZT9LuF90?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
         },
-        {
-            title: "Walking Back Home",
-            artist: "Vira Talisa",
-            cover: "https://placehold.co/400x400/e67e22/ffffff?text=Walking+Back",
-            audioSrc: "",
-            lyrics: "And I'm walking back home\nThinking 'bout you all day long\nI'm walking back home\nSinging my lonely song"
+        { 
+            title: "Here With Me", 
+            spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5LrN7yUQAzvthd4QujgPFr?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
+        },
+        { 
+            title: "If I Knew", 
+            spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7lXOqE38eCr979gp27O5wr?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
+        },
+        { 
+            title: "Walking Back Home", 
+            spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7lu5yyLdgRTMTnYw8yCWvM?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
         }
     ];
-
+    
     const galleryImages = [
         { src: "https://placehold.co/600x600/000000/FFFFFF?text=1" },    
         { src: "https://placehold.co/600x600/1a1a1a/FFFFFF?text=2" },
