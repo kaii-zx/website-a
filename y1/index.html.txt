@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaii's Corner - Cinematic AI Chat</title>
+    
+    <!-- LINK KE FILE CSS EKSTERNAL -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Swiper.js for Carousel -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    
+    <!-- Google API Client Library -->
+    <script src="https://apis.google.com/js/api.js"></script>
+</head>
+<body>
+
+    <div class="scroll-container" id="scroll-container">
+        <!-- Bagian 1: Intro -->
+        <section id="intro-screen" class="screen">
+            <div class="text-center"> <h1 class="text-6xl md:text-8xl font-bold tracking-tight">kaii's corner</h1> </div>
+            <div class="absolute bottom-16 text-center"> <p class="text-white opacity-50 mb-4">Swipe Down</p> <i data-feather="arrow-down" class="mx-auto glow-arrow"></i> </div>
+        </section>
+
+        <!-- Bagian 2: Playlist -->
+        <section id="playlist-screen" class="screen">
+            <div class="swiper"> <div class="swiper-wrapper" id="playlist-wrapper"></div> </div>
+            <div id="lyrics-display" class="lyrics-container w-full max-w-md mx-auto mt-4 rounded-xl text-center px-4"> <div id="lyrics-content"></div> </div>
+        </section>
+
+        <!-- Bagian 3: Galeri -->
+        <section id="gallery-screen" class="screen">
+            <div class="gallery-main-content text-center flex flex-col h-full">
+                 <h2 class="text-5xl font-bold mb-6 flex-shrink-0">Gallery</h2>
+                 <div class="gallery-grid-container flex-grow"> <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6"></div> </div>
+                 <div class="mt-6 flex-shrink-0"> <p id="back-home-link" class="text-md">back home</p> </div>
+            </div>
+        </section>
+
+        <!-- Bagian 4: Chat AI -->
+        <section id="chat-screen" class="screen">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h2 class="text-2xl font-bold">AI Chat</h2>
+                    <div id="auth-container" class="mt-2">
+                        <button id="authorize_button" class="bg-blue-600 px-4 py-2 rounded-lg text-sm">Sign in with Google</button>
+                        <button id="signout_button" class="bg-red-600 px-4 py-2 rounded-lg text-sm" style="display: none;">Sign Out</button>
+                    </div>
+                     <p id="auth-status" class="text-xs text-gray-400 mt-1"></p>
+                </div>
+                <div class="chat-messages" id="chat-messages">
+                     <div class="chat-bubble model">Halo! Silakan login dengan Google untuk menyimpan riwayat chat.</div>
+                </div>
+                <div class="chat-input-area">
+                    <button id="save_chat_button" class="mr-4 text-gray-400 hover:text-white" title="Save chat to Google Drive" disabled> <i data-feather="save"></i> </button>
+                    <form id="chat-form" class="flex-grow flex">
+                        <input type="text" id="chat-input" class="chat-input" placeholder="Ketik pesan Anda..." autocomplete="off">
+                        <button type="submit" class="chat-send-btn"> <i data-feather="arrow-up"></i> </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <audio id="audioPlayer"></audio>
+    
+    <!-- LINK KE FILE JAVASCRIPT EKSTERNAL -->
+    <script src="script.js"></script>
+</body>
+</html>
