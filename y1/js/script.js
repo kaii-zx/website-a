@@ -3,40 +3,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const GEMINI_API_KEY = ""; // Disediakan oleh environment, biarkan kosong.
     const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
     
-    // !! PENTING !! Ganti nilai di bawah ini dengan kredensial Anda sendiri
-    // !! dari Google Cloud Console agar fitur Google Drive berfungsi.
+    // !! PENTING !! Kredensial ini Anda berikan, pastikan sudah benar.
     const GOOGLE_CLIENT_ID = '719464254563-lanu41fmths6824822jgese38lusrcum.apps.googleusercontent.com'; 
-    const GOOGLE_API_KEY = 'AIzaSyDREGjfiQyBm2P7t9J5JdHARC1G2tBkrg8'; // Bisa sama dengan GEMINI_API_KEY jika dari project yang sama
+    const GOOGLE_API_KEY = 'AIzaSyDREGjfiQyBm2P7t9J5JdHARC1G2tBkrg8';
     
     const SCOPES = 'https://www.googleapis.com/auth/drive.file';
 
-    // --- Data Aplikasi ---
-   const playlist = [
-    { 
-        title: "All I Want", 
-        spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3HHqVJHqwgkxWhOQ4MhLB6?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
-    },
-    { 
-        title: "It's You", 
-        spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0NlGoUyOJSuSHmngoibVAs?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
-    },
-    { 
-        title: "Don't You Remember", 
-        spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1CRtJS94Hq3PbBZT9LuF90?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
-    },
-    { 
-        title: "Here With Me", 
-        spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5LrN7yUQAzvthd4QujgPFr?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
-    },
-    { 
-        title: "If I Knew", 
-        spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7lXOqE38eCr979gp27O5wr?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
-    },
-    { 
-        title: "Walking Back Home", 
-        spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7lu5yyLdgRTMTnYw8yCWvM?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
-    }
-];
+    // --- Data Aplikasi (Diperbarui dengan Spotify Embed) ---
+    const playlist = [
+        { 
+            title: "All I Want", 
+            spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3HHqVJHqwgkxWhOQ4MhLB6?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
+        },
+        { 
+            title: "It's You", 
+            spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0NlGoUyOJSuSHmngoibVAs?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
+        },
+        { 
+            title: "Don't You Remember", 
+            spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1CRtJS94Hq3PbBZT9LuF90?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
+        },
+        { 
+            title: "Here With Me", 
+            spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5LrN7yUQAzvthd4QujgPFr?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
+        },
+        { 
+            title: "If I Knew", 
+            spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7lXOqE38eCr979gp27O5wr?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
+        },
+        { 
+            title: "Walking Back Home", 
+            spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7lu5yyLdgRTMTnYw8yCWvM?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
+        }
+    ];
 
     const galleryImages = [
         { src: "https://placehold.co/600x600/000000/FFFFFF?text=1" }, 
@@ -50,8 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const scrollContainer = document.getElementById('scroll-container');
     const playlistWrapper = document.getElementById('playlist-wrapper');
     const galleryGrid = document.getElementById('gallery-grid');
-    const lyricsDisplay = document.getElementById('lyrics-display');
-    const lyricsContent = document.getElementById('lyrics-content');
     const backHomeLink = document.getElementById('back-home-link');
     const chatMessages = document.getElementById('chat-messages');
     const chatForm = document.getElementById('chat-form');
@@ -61,16 +58,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveChatButton = document.getElementById('save_chat_button');
     const authStatus = document.getElementById('auth-status');
     let chatHistory = []; 
-    let currentSongIndex = -1;
-    let isPlaying = false;
-    let lyricInterval;
 
     // --- Populasi Konten ---
     function populatePlaylist() {
         playlist.forEach((song) => {
             const slide = document.createElement('div');
             slide.className = 'swiper-slide';
-            slide.innerHTML = `<div class="playlist-card rounded-2xl p-6 flex flex-col items-center text-center shadow-2xl"><img src="${song.art}" alt="${song.title}" class="w-full h-full rounded-lg object-cover"><h3 class="absolute bottom-24 text-2xl font-bold truncate w-full px-6">${song.title}</h3><p class="absolute bottom-16 text-md opacity-70">${song.artist}</p><button class="play-btn absolute bottom-4 bg-white text-black rounded-full p-4 hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"><i data-feather="play" class="w-6 h-6"></i></button></div>`;
+            // PERBAIKAN: Langsung menggunakan spotifyEmbed. Menghapus struktur kartu kustom.
+            slide.innerHTML = song.spotifyEmbed;
             playlistWrapper.appendChild(slide);
         });
     }
@@ -115,78 +110,15 @@ document.addEventListener('DOMContentLoaded', () => {
             setTransition: (s, duration) => {
                 s.slides.forEach(slide => slide.style.transitionDuration = `${duration}ms`);
             },
-            slideChange: () => {
-                if (isPlaying) pauseSong();
-                updatePlayButtons();
-                lyricsDisplay.classList.remove('visible');
-            },
+            // Tidak ada lagi aksi yang perlu dilakukan saat slide berubah karena pemutar kustom dihapus.
+            slideChange: () => {},
         }
     });
-    function updatePlayButtons() {
-        document.querySelectorAll('.swiper-slide').forEach(slide => {
-            slide.querySelector('.play-btn').disabled = !slide.classList.contains('swiper-slide-active');
-        });
-    }
-    playlistWrapper.addEventListener('click', (e) => {
-        const playButton = e.target.closest('.play-btn');
-        if (playButton) {
-            const slide = e.target.closest('.swiper-slide');
-            if (slide && slide.classList.contains('swiper-slide-active')) {
-                const realIndex = swiper.realIndex;
-                if (isPlaying && currentSongIndex === realIndex) pauseSong(); else playSong(realIndex);
-            }
-        }
-    });
-    function playSong(index) {
-        if(isPlaying) pauseSong();
-        currentSongIndex = index; isPlaying = true;
-        const activeSlide = document.querySelector(`.swiper-slide[data-swiper-slide-index="${index}"]`);
-        if(activeSlide) {
-            const buttonIcon = activeSlide.querySelector('.play-btn i');
-            buttonIcon.setAttribute('data-feather', 'pause');
-            feather.replace();
-        }
-        lyricsDisplay.classList.add('visible');
-        startLyricSync();
-    }
-    function pauseSong() {
-        const activeSlide = document.querySelector(`.swiper-slide[data-swiper-slide-index="${currentSongIndex}"]`);
-        if(activeSlide){
-            const buttonIcon = activeSlide.querySelector('.play-btn i');
-            buttonIcon.setAttribute('data-feather', 'play');
-            feather.replace();
-        }
-        isPlaying = false; clearInterval(lyricInterval); currentSongIndex = -1;
-    }
-    function startLyricSync() {
-        const currentLyrics = playlist[currentSongIndex].lyrics;
-        let lyricIndex = 0;
-        updateLyricLine(currentLyrics[lyricIndex].text, false);
-        lyricInterval = setInterval(() => {
-            lyricIndex = (lyricIndex + 1) % currentLyrics.length;
-            updateLyricLine(currentLyrics[lyricIndex].text, true);
-        }, 3000);
-    }
-    function updateLyricLine(text, animateOldLineOut) {
-        const oldLine = lyricsContent.querySelector('.lyric-line.active');
-        if (oldLine && animateOldLineOut) {
-            oldLine.classList.remove('active');
-            oldLine.classList.add('exit');
-            oldLine.addEventListener('transitionend', () => oldLine.remove());
-        } else if (oldLine) {
-            oldLine.remove();
-        }
-        const newLine = document.createElement('p');
-        newLine.textContent = text;
-        newLine.className = 'lyric-line';
-        lyricsContent.appendChild(newLine);
-        setTimeout(() => newLine.classList.add('active'), 50);
-    }
 
     // --- Logika Chat & Google Drive ---
     function gapiLoaded() { gapi.load('client', initializeGapiClient); }
     async function initializeGapiClient() {
-        if (GOOGLE_API_KEY === 'YOUR_GOOGLE_API_KEY') {
+        if (GOOGLE_API_KEY === 'YOUR_GOOGLE_API_KEY' || !GOOGLE_API_KEY) {
             console.error("Google API Key is not set. Please update it in the code.");
             authStatus.textContent = "Google API Key missing.";
             return;
@@ -195,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         gapiInited = true; maybeEnableButtons();
     }
     function gisLoaded() {
-        if (GOOGLE_CLIENT_ID === 'YOUR_CLIENT_ID.apps.googleusercontent.com') {
+        if (GOOGLE_CLIENT_ID === 'YOUR_CLIENT_ID.apps.googleusercontent.com' || !GOOGLE_CLIENT_ID) {
             console.error("Google Client ID is not set. Please update it in the code.");
             authStatus.textContent = "Google Client ID missing.";
             return;
@@ -300,5 +232,6 @@ document.addEventListener('DOMContentLoaded', () => {
     populatePlaylist();
     populateGallery();
     feather.replace();
-    updatePlayButtons();
+    
 });
+
