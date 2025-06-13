@@ -3,8 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaii's Corner - Cinematic AI Chat</title>
+    <title>Kaii's Corner - Cinematic</title>
     
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Swiper.js for Carousel -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
     <style>
         html, body {
             margin: 0;
@@ -49,139 +64,45 @@
         .glow-arrow { filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 10px #fff); animation: bounce 2.5s infinite; }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-20px); } 60% { transform: translateY(-10px); } }
 
-        /* --- Bagian 2: Playlist (Disesuaikan) --- */
-        #playlist-screen { 
-            background: linear-gradient(-45deg, #232526, #414345, #232526, #414345); 
-            background-size: 400% 400%; 
-            animation: waveGradient 20s ease infinite; 
-            overflow: hidden; 
-        }
+        /* --- Bagian 2: Playlist (Disesuaikan untuk Spotify) --- */
+        #playlist-screen { background: linear-gradient(-45deg, #d4d4d4, #f5f5f5, #e9e9e9, #fafafa); background-size: 400% 400%; animation: waveGradient 20s ease infinite; overflow: hidden; }
         @keyframes waveGradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        
-        .swiper {
-            width: 100%;
-            padding-top: 50px;
-            padding-bottom: 50px;
-        }
+        .swiper { width: 100%; height: 500px; } /* Memberi tinggi agar swiper terlihat */
         .swiper-slide {
             background-position: center;
             background-size: cover;
             width: 320px;
-            height: 420px;
+            height: 380px; /* Menyesuaikan dengan tinggi embed spotify */
             display: flex;
             align-items: center;
             justify-content: center;
+            border-radius: 12px;
+            overflow: hidden; /* Memastikan iframe tidak keluar dari border-radius */
         }
         
-        /* Gaya Kartu Playlist Baru */
-        .playlist-card {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            border-radius: 18px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            color: white;
-        }
-        .playlist-card-cover {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
-            transition: transform 0.4s ease;
-        }
-        .playlist-card:hover .playlist-card-cover {
-            transform: scale(1.1);
-        }
-        .playlist-card-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 50%;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-            z-index: 2;
-        }
-        .playlist-card-content {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
-            z-index: 3;
-        }
-        .play-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60px;
-            height: 60px;
-            background-color: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 3;
-            cursor: pointer;
-            border: 1px solid rgba(255,255,255,0.3);
-            opacity: 0;
-            transition: opacity 0.3s ease, background-color 0.3s ease;
-        }
-        .swiper-slide-active .play-button {
-            opacity: 1;
-        }
-        .play-button:hover {
+        /* Gaya untuk Tombol Navigasi Swiper */
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: #333; /* Warna ikon panah */
             background-color: rgba(255, 255, 255, 0.4);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            backdrop-filter: blur(4px);
+            transition: background-color 0.3s ease;
         }
 
-        /* Gaya Lirik Baru */
-        .lyrics-container {
-            position: absolute;
-            bottom: 2rem;
-            width: 90%;
-            max-width: 600px;
-            background-color: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            text-align: center;
-            opacity: 0;
-            transform: translateY(100%);
-            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-            z-index: 100;
-        }
-        .lyrics-container.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        #lyrics-content {
-            max-height: 150px;
-            overflow-y: auto;
-            scrollbar-width: none;
-        }
-        #lyrics-content::-webkit-scrollbar { display: none; }
-        .lyric-line {
-            display: block; /* Agar setiap baris punya container sendiri */
-            overflow: hidden; /* Ini adalah bagian dari efek "mask" */
-        }
-        .lyric-line span {
-            display: inline-block; /* Agar transform bisa diterapkan */
-            font-size: 1.2rem;
-            line-height: 1.6;
-            color: #fff;
-            text-shadow: 0 0 8px rgba(255,255,255,0.8);
-            transform: translateY(100%);
-            animation: revealLine 0.8s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        @keyframes revealLine {
-            from { transform: translateY(100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        .swiper-button-next:hover,
+        .swiper-button-prev:hover {
+            background-color: rgba(255, 255, 255, 0.7);
         }
 
+        .swiper-button-next:after,
+        .swiper-button-prev:after {
+            font-size: 20px; /* Ukuran ikon panah */
+            font-weight: 900;
+        }
+        
         /* --- Bagian 3: Galeri --- */
         #gallery-screen { background-color: #ffffff; color: #000; padding: 2rem; }
         .gallery-main-content { max-width: 1000px; }
@@ -191,413 +112,151 @@
         .gallery-item:hover img { transform: scale(1.05); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1); }
         #back-home-link { color: #888; cursor: pointer; transition: color 0.3s ease; }
         #back-home-link:hover { color: #000; }
-
-        /* --- Bagian 4: Chat AI --- */
-        #chat-screen { background-color: #111; color: #fff; padding: 1rem; justify-content: flex-end; }
-        .chat-container { width: 100%; max-width: 768px; height: 100%; display: flex; flex-direction: column; }
-        .chat-header { padding: 1rem; border-bottom: 1px solid #333; text-align: center; }
-        .chat-messages { flex-grow: 1; overflow-y: auto; padding: 1rem; scrollbar-width: thin; scrollbar-color: #555 #333; }
-        .chat-messages::-webkit-scrollbar { width: 8px; }
-        .chat-messages::-webkit-scrollbar-track { background: #333; }
-        .chat-messages::-webkit-scrollbar-thumb { background-color: #555; border-radius: 4px; }
-        .chat-bubble { max-width: 75%; padding: 0.75rem 1rem; border-radius: 1.25rem; margin-bottom: 0.5rem; word-wrap: break-word; }
-        .chat-bubble.user { background-color: #373737; margin-left: auto; border-bottom-right-radius: 0.25rem; }
-        .chat-bubble.model { background-color: #000; border: 1px solid #333; margin-right: auto; border-bottom-left-radius: 0.25rem; }
-        .chat-bubble.loading { display: flex; align-items: center; justify-content: center; }
-        .typing-indicator span { height: 8px; width: 8px; margin: 0 2px; background-color: #888; border-radius: 50%; display: inline-block; animation: bounce-indicator 1.4s infinite ease-in-out both; }
-        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
-        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
-        @keyframes bounce-indicator { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1.0); } }
-        .chat-input-area { display: flex; padding: 1rem; border-top: 1px solid #333; }
-        .chat-input { flex-grow: 1; background-color: #222; border: 1px solid #444; border-radius: 2rem; padding: 0.75rem 1rem; color: #fff; outline: none; }
-        .chat-input:focus { border-color: #777; }
-        .chat-send-btn { background-color: #fff; color: #000; border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; margin-left: 1rem; flex-shrink: 0; }
+        
     </style>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-    <script src="https://unpkg.com/feather-icons"></script>
-    
-    <script src="https://apis.google.com/js/api.js"></script>
 </head>
 <body>
 
     <div class="scroll-container" id="scroll-container">
+        <!-- Bagian 1: Intro -->
         <section id="intro-screen" class="screen">
             <div class="text-center"> <h1 class="text-6xl md:text-8xl font-bold tracking-tight">kaii's corner</h1> </div>
             <div class="absolute bottom-16 text-center"> <p class="text-white opacity-50 mb-4">Swipe Down</p> <i data-feather="arrow-down" class="mx-auto glow-arrow"></i> </div>
         </section>
 
+        <!-- Bagian 2: Playlist -->
         <section id="playlist-screen" class="screen">
             <div class="swiper">
-                <div class="swiper-wrapper" id="playlist-wrapper">
-                    </div>
-            </div>
-            <div id="lyrics-display" class="lyrics-container">
-                <div id="lyrics-content"></div>
+                <div class="swiper-wrapper" id="playlist-wrapper"></div>
+                
+                <!-- Tombol Navigasi Ditambahkan -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
             </div>
         </section>
 
+        <!-- Bagian 3: Galeri -->
         <section id="gallery-screen" class="screen">
             <div class="gallery-main-content text-center flex flex-col h-full">
-                  <h2 class="text-5xl font-bold mb-6 flex-shrink-0">Gallery</h2>
-                  <div class="gallery-grid-container flex-grow"> <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6"></div> </div>
-                  <div class="mt-6 flex-shrink-0"> <p id="back-home-link" class="text-md">back home</p> </div>
-            </div>
-        </section>
-
-        <section id="chat-screen" class="screen">
-            <div class="chat-container">
-                <div class="chat-header">
-                    <h2 class="text-2xl font-bold">AI Chat</h2>
-                    <div id="auth-container" class="mt-2">
-                        <button id="authorize_button" class="bg-blue-600 px-4 py-2 rounded-lg text-sm">Sign in with Google</button>
-                        <button id="signout_button" class="bg-red-600 px-4 py-2 rounded-lg text-sm" style="display: none;">Sign Out</button>
-                    </div>
-                     <p id="auth-status" class="text-xs text-gray-400 mt-1"></p>
-                </div>
-                <div class="chat-messages" id="chat-messages">
-                     <div class="chat-bubble model">Halo! Silakan login dengan Google untuk menyimpan riwayat chat.</div>
-                </div>
-                <div class="chat-input-area">
-                    <button id="save_chat_button" class="mr-4 text-gray-400 hover:text-white" title="Save chat to Google Drive" disabled> <i data-feather="save"></i> </button>
-                    <form id="chat-form" class="flex-grow flex">
-                        <input type="text" id="chat-input" class="chat-input" placeholder="Ketik pesan Anda..." autocomplete="off">
-                        <button type="submit" class="chat-send-btn"> <i data-feather="arrow-up"></i> </button>
-                    </form>
-                </div>
+                 <h2 class="text-5xl font-bold mb-6 flex-shrink-0">Gallery</h2>
+                 <div class="gallery-grid-container flex-grow"> <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6"></div> </div>
+                 <div class="mt-6 flex-shrink-0"> <p id="back-home-link" class="text-md">back home</p> </div>
             </div>
         </section>
     </div>
     
-    <audio id="audioPlayer"></audio>
-    
     <script>
-document.addEventListener('DOMContentLoaded', () => {
-    // --- Konfigurasi API ---
-    const GEMINI_API_KEY = ""; // Disediakan oleh environment, biarkan kosong.
-    const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
-    
-    // !! PENTING !! Kredensial ini Anda berikan, pastikan sudah benar.
-    const GOOGLE_CLIENT_ID = '719464254563-lanu41fmths6824822jgese38lusrcum.apps.googleusercontent.com';    
-    const GOOGLE_API_KEY = 'AIzaSyDREGjfiQyBm2P7t9J5JdHARC1G2tBkrg8';
-    
-    const SCOPES = 'https://www.googleapis.com/auth/drive.file';
-
-    // --- Data Aplikasi (Diperbarui dengan struktur kartu kustom) ---
-     const playlist = [
-        { 
-            title: "All I Want", 
-            spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3HHqVJHqwgkxWhOQ4MhLB6?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
-        },
-        { 
-            title: "It's You", 
-            spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0NlGoUyOJSuSHmngoibVAs?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
-        },
-        { 
-            title: "Don't You Remember", 
-            spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1CRtJS94Hq3PbBZT9LuF90?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
-        },
-        { 
-            title: "Here With Me", 
-            spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5LrN7yUQAzvthd4QujgPFr?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
-        },
-        { 
-            title: "If I Knew", 
-            spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7lXOqE38eCr979gp27O5wr?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
-        },
-        { 
-            title: "Walking Back Home", 
-            spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7lu5yyLdgRTMTnYw8yCWvM?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
-        }
-    ];
-    
-    const galleryImages = [
-        { src: "https://placehold.co/600x600/000000/FFFFFF?text=1" },    
-        { src: "https://placehold.co/600x600/1a1a1a/FFFFFF?text=2" },
-        { src: "https://placehold.co/600x600/333333/FFFFFF?text=3" }
-    ];
-    const SYSTEM_INSTRUCTION = { "role": "system", "parts": [{ "text": "Kamu adalah 'Kaii-Bot', asisten AI pribadi yang santai, sedikit puitis, dan selalu merespons dengan gaya teman akrab. Gunakan bahasa Indonesia dan jangan terlalu formal." }] };
-
-    // --- Referensi Elemen & Variabel ---
-    let tokenClient, gapiInited = false, gisInited = false;
-    const scrollContainer = document.getElementById('scroll-container');
-    const playlistWrapper = document.getElementById('playlist-wrapper');
-    const lyricsDisplay = document.getElementById('lyrics-display');
-    const lyricsContent = document.getElementById('lyrics-content');
-    const galleryGrid = document.getElementById('gallery-grid');
-    const backHomeLink = document.getElementById('back-home-link');
-    const chatMessages = document.getElementById('chat-messages');
-    const chatForm = document.getElementById('chat-form');
-    const chatInput = document.getElementById('chat-input');
-    const authorizeButton = document.getElementById('authorize_button');
-    const signoutButton = document.getElementById('signout_button');
-    const saveChatButton = document.getElementById('save_chat_button');
-    const authStatus = document.getElementById('auth-status');
-    let chatHistory = [];    
-
-    // --- Populasi Konten ---
-    function populatePlaylist() {
-        playlist.forEach((song, index) => {
-            const slide = document.createElement('div');
-            slide.className = 'swiper-slide';
-            slide.innerHTML = `
-                <div class="playlist-card">
-                    <img src="${song.cover}" class="playlist-card-cover">
-                    <div class="playlist-card-overlay"></div>
-                    <div class="playlist-card-content">
-                        <h3 class="font-bold text-2xl">${song.title}</h3>
-                        <p class="opacity-80">${song.artist}</p>
-                    </div>
-                    <div class="play-button" data-index="${index}">
-                        <i data-feather="play" style="margin-left: 4px;"></i>
-                    </div>
-                </div>
-            `;
-            playlistWrapper.appendChild(slide);
-        });
-        feather.replace(); // Perbarui ikon setelah ditambahkan
-    }
-
-    function populateGallery() {
-        galleryImages.forEach(img => {
-            const item = document.createElement('div');
-            item.className = 'gallery-item';
-            item.innerHTML = `<img src="${img.src}" class="w-full h-full object-cover rounded-lg">`;
-            galleryGrid.appendChild(item);
-        });
-    }
-
-    // --- Logika Swiper & Playlist ---
-    const swiper = new Swiper('.swiper', {
-        effect: "creative", // Menggunakan "creative" sebagai dasar untuk transisi kustom
-        grabCursor: true,
-        centeredSlides: true,
-        slidesPerView: "auto",
-        loop: true,
-        creativeEffect: { // Efek kreatif dikosongkan karena kita akan mengontrolnya via event 'progress'
-            prev: { translate: [0, 0, 0] },
-            next: { translate: [0, 0, 0] },
-        },
-        on: {
-            progress: (s, progress) => {
-                const scaleStep = 0.2;
-                const zTranslateStep = 120;
-                
-                for (let i = 0; i < s.slides.length; i++) {
-                    const slide = s.slides[i];
-                    const slideProgress = slide.progress;
-                    
-                    // 1. Scroll Zoom (Membesar di tengah)
-                    const scale = 1 - Math.abs(slideProgress) * scaleStep;
-                    
-                    // 2. Tilted Scroll & Rotating Door Effect (Miring & Berputar)
-                    const rotateY = -slideProgress * 60; // Efek pintu putar utama
-                    
-                    // 3. Efek Blur di sisi
-                    const blur = Math.abs(slideProgress) * 5; // Semakin ke samping, semakin blur
-                    
-                    // Gabungkan semua transformasi
-                    slide.style.transform = `perspective(1200px) scale(${scale}) rotateY(${rotateY}deg)`;
-                    slide.style.filter = `blur(${blur}px)`;
-                    slide.style.zIndex = Math.floor(100 - Math.abs(slideProgress * 100));
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Data Aplikasi (Diperbarui dengan Spotify Embed) ---
+            const playlist = [
+                { 
+                    title: "All I Want", 
+                    spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3HHqVJHqwgkxWhOQ4MhLB6?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
+                },
+                { 
+                    title: "It's You", 
+                    spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0NlGoUyOJSuSHmngoibVAs?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
+                },
+                { 
+                    title: "Don't You Remember", 
+                    spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1CRtJS94Hq3PbBZT9LuF90?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
+                },
+                { 
+                    title: "Here With Me", 
+                    spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5LrN7yUQAzvthd4QujgPFr?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
+                },
+                { 
+                    title: "If I Knew", 
+                    spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7lXOqE38eCr979gp27O5wr?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
+                },
+                { 
+                    title: "Walking Back Home", 
+                    spotifyEmbed: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7lu5yyLdgRTMTnYw8yCWvM?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' 
                 }
-            },
-            setTransition: (s, duration) => {
-                s.slides.forEach(slide => slide.style.transitionDuration = `${duration}ms`);
-            },
-            slideChange: () => {
-                // Sembunyikan lirik saat slide berubah
-                hideLyrics();
-            },
-        }
-    });
-    
-    // --- Logika Lirik ---
-    function showLyrics(index) {
-        const song = playlist[index];
-        if (!song || !song.lyrics) return;
+            ];
 
-        lyricsContent.innerHTML = ''; // Kosongkan lirik sebelumnya
-        
-        const lines = song.lyrics.split('\n');
-        lines.forEach((line, i) => {
-            const lineWrapper = document.createElement('div');
-            lineWrapper.className = 'lyric-line';
+            const galleryImages = [
+                { src: "https://placehold.co/600x600/000000/FFFFFF?text=1" }, 
+                { src: "https://placehold.co/600x600/1a1a1a/FFFFFF?text=2" },
+                { src: "https://placehold.co/600x600/333333/FFFFFF?text=3" }
+            ];
             
-            const lineSpan = document.createElement('span');
-            lineSpan.textContent = line;
-            // Staggered animation delay untuk efek baris per baris
-            lineSpan.style.animationDelay = `${i * 0.15}s`;
+            // --- Referensi Elemen & Variabel ---
+            const scrollContainer = document.getElementById('scroll-container');
+            const playlistWrapper = document.getElementById('playlist-wrapper');
+            const galleryGrid = document.getElementById('gallery-grid');
+            const backHomeLink = document.getElementById('back-home-link');
+            
+            // --- Populasi Konten ---
+            function populatePlaylist() {
+                playlist.forEach((song) => {
+                    const slide = document.createElement('div');
+                    slide.className = 'swiper-slide';
+                    slide.innerHTML = song.spotifyEmbed;
+                    playlistWrapper.appendChild(slide);
+                });
+            }
+            function populateGallery() {
+                galleryImages.forEach(img => {
+                    const item = document.createElement('div');
+                    item.className = 'gallery-item';
+                    item.innerHTML = `<img src="${img.src}" class="w-full h-full object-cover rounded-lg">`;
+                    galleryGrid.appendChild(item);
+                });
+            }
 
-            lineWrapper.appendChild(lineSpan);
-            lyricsContent.appendChild(lineWrapper);
-        });
-
-        lyricsDisplay.classList.add('is-visible');
-
-        // Ganti ikon play menjadi pause
-        const playButton = playlistWrapper.querySelector(`.swiper-slide-active .play-button`);
-        if(playButton) {
-            playButton.innerHTML = `<i data-feather="pause"></i>`;
+            // --- Logika Swiper ---
+            const swiper = new Swiper('.swiper', {
+                effect: "coverflow",
+                grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: "auto",
+                loop: true,
+                // Opsi Navigasi Ditambahkan
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                coverflowEffect: {
+                  rotate: 0,
+                  stretch: 0,
+                  depth: 300,
+                  modifier: 1,
+                  slideShadows: false
+                },
+                on: {
+                    progress: (s, progress) => {
+                        for (let i = 0; i < s.slides.length; i++) {
+                            const slide = s.slides[i];
+                            const slideProgress = slide.progress;
+                            const scale = 1 - Math.abs(slideProgress) * 0.2;
+                            const rotateY = -slideProgress * 45;
+                            const opacity = 1 - Math.pow(Math.abs(slideProgress), 2);
+                            const filter = `blur(${Math.abs(slideProgress) * 3}px)`;
+                            slide.style.transform = `perspective(1000px) scale(${scale}) rotateY(${rotateY}deg)`;
+                            slide.style.opacity = opacity;
+                            slide.style.filter = filter;
+                            slide.style.zIndex = Math.floor(100 - Math.abs(slideProgress * 100));
+                        }
+                    },
+                    setTransition: (s, duration) => {
+                        s.slides.forEach(slide => slide.style.transitionDuration = `${duration}ms`);
+                    }
+                }
+            });
+            
+            // --- Logika Navigasi & Transisi Layar ---
+            const screenObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => entry.target.classList.toggle('is-visible', entry.isIntersecting));
+            }, { threshold: 0.5 });
+            document.querySelectorAll('.screen').forEach(screen => screenObserver.observe(screen));
+            backHomeLink.addEventListener('click', () => scrollContainer.scrollTo({ top: 0, behavior: 'smooth' }));
+            
+            // --- Inisialisasi Akhir ---
+            populatePlaylist();
+            populateGallery();
             feather.replace();
-        }
-    }
-
-    function hideLyrics() {
-        if(lyricsDisplay.classList.contains('is-visible')) {
-            lyricsDisplay.classList.remove('is-visible');
-
-            // Ganti ikon pause menjadi play kembali
-            const playButton = playlistWrapper.querySelector(`.play-button[data-feather="pause"]`);
-             if(playButton) {
-                 playButton.innerHTML = `<i data-feather="play" style="margin-left: 4px;"></i>`;
-                 feather.replace();
-             }
-        }
-    }
-
-    playlistWrapper.addEventListener('click', (e) => {
-        const playButton = e.target.closest('.play-button');
-        // Pastikan yang diklik adalah tombol play di slide yang sedang aktif
-        const slide = e.target.closest('.swiper-slide-active');
-        
-        if (playButton && slide) {
-            if(lyricsDisplay.classList.contains('is-visible')) {
-                hideLyrics();
-            } else {
-                const songIndex = parseInt(playButton.dataset.index, 10);
-                showLyrics(songIndex);
-            }
-        }
-    });
-
-    // --- Logika Chat & Google Drive ---
-    function gapiLoaded() { gapi.load('client', initializeGapiClient); }
-    async function initializeGapiClient() {
-        if (GOOGLE_API_KEY === 'YOUR_GOOGLE_API_KEY' || !GOOGLE_API_KEY) {
-            console.error("Google API Key is not set. Please update it in the code.");
-            authStatus.textContent = "Google API Key missing.";
-            return;
-        }
-        await gapi.client.init({ apiKey: GOOGLE_API_KEY, discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"] });
-        gapiInited = true; maybeEnableButtons();
-    }
-    function gisLoaded() {
-        if (GOOGLE_CLIENT_ID === 'YOUR_CLIENT_ID.apps.googleusercontent.com' || !GOOGLE_CLIENT_ID) {
-            console.error("Google Client ID is not set. Please update it in the code.");
-            authStatus.textContent = "Google Client ID missing.";
-            return;
-        }
-        tokenClient = google.accounts.oauth2.initTokenClient({ client_id: GOOGLE_CLIENT_ID, scope: SCOPES, callback: '' });
-        gisInited = true; maybeEnableButtons();
-    }
-    function maybeEnableButtons() { if (gapiInited && gisInited) authorizeButton.style.visibility = 'visible'; }
-    function handleAuthClick() {
-        tokenClient.callback = async (resp) => {
-            if (resp.error) throw (resp);
-            updateUiWithAuthState(true);
-            saveChatButton.disabled = false;
-            gapi.client.setToken(resp);
-        };
-        if (!gapi.client.getToken()) tokenClient.requestAccessToken({ prompt: 'consent' });
-        else tokenClient.requestAccessToken({ prompt: '' });
-    }
-    function handleSignoutClick() {
-        const token = gapi.client.getToken();
-        if (token) {
-            google.accounts.oauth2.revoke(token.access_token);
-            gapi.client.setToken('');
-            updateUiWithAuthState(false);
-            saveChatButton.disabled = true;
-        }
-    }
-    function updateUiWithAuthState(isSignedIn) {
-        authorizeButton.style.display = isSignedIn ? 'none' : 'block';
-        signoutButton.style.display = isSignedIn ? 'block' : 'none';
-        authStatus.textContent = isSignedIn ? "Signed in to Google." : "Sign in to save chat.";
-    }
-    const gapiScript = document.createElement('script'); gapiScript.src = 'https://apis.google.com/js/api.js'; gapiScript.async = true; gapiScript.defer = true; gapiScript.onload = gapiLoaded; document.body.appendChild(gapiScript);
-    const gisScript = document.createElement('script'); gisScript.src = 'https://accounts.google.com/gsi/client'; gisScript.async = true; gisScript.defer = true; gisScript.onload = gisLoaded; document.body.appendChild(gisScript);
-    
-    function appendMessage(sender, text, isLoading = false) {
-        const bubble = document.createElement('div');
-        bubble.classList.add('chat-bubble', sender);
-        if (isLoading) {
-            bubble.classList.add('loading'); bubble.id = 'loading-bubble';
-            bubble.innerHTML = `<div class="typing-indicator"><span></span><span></span><span></span></div>`;
-        } else {
-            bubble.textContent = text;
-            if (sender === 'user' || (sender === 'model' && text !== "Halo! Silakan login dengan Google untuk menyimpan riwayat chat.")) {
-                 if (chatHistory.length > 12) {
-                     chatHistory.splice(0, 2); 
-                 }
-                 chatHistory.push({role: sender, parts: [{text}]});
-            }
-        }
-        chatMessages.appendChild(bubble);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-    async function handleChatSubmit(e) {
-        e.preventDefault();
-        const userMessage = chatInput.value.trim();
-        if (!userMessage) return;
-        appendMessage('user', userMessage);
-        chatInput.value = '';
-        appendMessage('model', '', true);
-        try {
-            const payload = { contents: [SYSTEM_INSTRUCTION, ...chatHistory] };
-            const response = await fetch(GEMINI_API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-            if (!response.ok) throw new Error('Network response was not ok');
-            const result = await response.json();
-            const aiMessage = result.candidates[0].content.parts[0].text;
-            document.getElementById('loading-bubble')?.remove();
-            appendMessage('model', aiMessage);
-        } catch (error) {
-            console.error("Error fetching AI response:", error);
-            document.getElementById('loading-bubble')?.remove();
-            appendMessage('model', "Maaf, terjadi kesalahan. Coba lagi.");
-        }
-    }
-    async function saveChatToDrive() {
-        if (!gapi.client.getToken()) { alert("Please sign in with Google first."); handleAuthClick(); return; }
-        let chatText = `Riwayat Chat AI - Kaii's Corner\nDisimpan pada: ${new Date().toLocaleString('id-ID')}\n\n---\n\n`;
-        chatText += `Instruksi Sistem: ${SYSTEM_INSTRUCTION.parts[0].text}\n\n---\n\n`;
-        chatHistory.forEach(entry => {
-            if(entry.role !== 'system') chatText += `${entry.role === 'user' ? 'Anda' : 'AI'}: ${entry.parts[0].text}\n\n`;
         });
-        const fileMetadata = { name: `Chat History ${new Date().toISOString()}.txt`, mimeType: 'text/plain' };
-        const boundary = '-------314159265358979323846', delimiter = `\r\n--${boundary}\r\n`, close_delim = `\r\n--${boundary}--`;
-        const multipartRequestBody = delimiter + `Content-Type: application/json\r\n\r\n${JSON.stringify(fileMetadata)}` + delimiter + `Content-Type: ${fileMetadata.mimeType}\r\n\r\n${chatText}` + close_delim;
-        try {
-            await gapi.client.request({ path: '/upload/drive/v3/files', method: 'POST', params: {'uploadType': 'multipart'}, headers: {'Content-Type': `multipart/related; boundary="${boundary}"`}, body: multipartRequestBody });
-            alert('Chat berhasil disimpan ke Google Drive Anda!');
-        } catch(err) { console.error("Error saving to Drive: ", err); alert('Gagal menyimpan chat.'); }
-    }
-    chatForm.addEventListener('submit', handleChatSubmit);
-    authorizeButton.onclick = handleAuthClick;
-    signoutButton.onclick = handleSignoutClick;
-    saveChatButton.onclick = saveChatToDrive;
-
-    // --- Inisialisasi Akhir ---
-    const screenObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => entry.target.classList.toggle('is-visible', entry.isIntersecting));
-    }, { threshold: 0.5 });
-    document.querySelectorAll('.screen').forEach(screen => screenObserver.observe(screen));
-    backHomeLink.addEventListener('click', () => scrollContainer.scrollTo({ top: 0, behavior: 'smooth' }));
-    
-    populatePlaylist();
-    populateGallery();
-    feather.replace();
-    
-});
     </script>
 </body>
 </html>
