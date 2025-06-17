@@ -331,6 +331,80 @@
     body {
       cursor: none;
     }
+
+    /* Responsive Layout */
+    @media (max-width: 900px) {
+      .surprise-message {
+        max-width: 90vw;
+        padding: 2rem 1rem 1.5rem 1rem;
+      }
+      .heart-icon, .cake-icon {
+        top: 10px;
+        left: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+      }
+    }
+    @media (max-width: 700px) {
+      #page1 h1 {
+        font-size: 2rem;
+      }
+      .surprise-message h2 {
+        font-size: 1.3rem;
+      }
+      .surprise-message p {
+        font-size: 1rem;
+      }
+      .heart-icon, .cake-icon {
+        width: 32px;
+        height: 32px;
+        top: 6px;
+        left: 6px;
+        right: 6px;
+      }
+    }
+    @media (max-width: 500px) {
+      #page1 {
+        padding: 1.5rem 0.5rem;
+      }
+      #page1 h1 {
+        font-size: 1.2rem;
+        padding: 0 0.2rem;
+      }
+      .surprise-message {
+        padding: 1.2rem 0.5rem 1rem 0.5rem;
+        max-width: 98vw;
+      }
+      .heart-icon, .cake-icon {
+        width: 22px;
+        height: 22px;
+        top: 2px;
+        left: 2px;
+        right: 2px;
+      }
+    }
+
+    /* Responsive Modal */
+    @media (max-width: 500px) {
+      .modal-box {
+        min-width: 90vw;
+        padding: 1rem 0.5rem 1rem 0.5rem;
+        font-size: 0.95rem;
+      }
+      .modal-box input[type="password"] {
+        font-size: 1rem;
+        width: 98%;
+      }
+    }
+
+    /* Responsive Confetti */
+    @media (max-width: 500px) {
+      .confetti-piece {
+        width: 8px;
+        height: 12px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -621,4 +695,3 @@
   </script>
 </body>
 </html>
-
