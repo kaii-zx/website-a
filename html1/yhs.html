@@ -405,6 +405,11 @@
         height: 12px;
       }
     }
+
+    /* Tambahkan di <style> */
+    #page3 {
+      background: #222 !important;
+    }
   </style>
 </head>
 <body>
@@ -432,10 +437,16 @@
     <div class="surprise-message">
       <h2>Untuk Kamu yang Paling Spesial...</h2>
       <p id="pesan-panjang">[Pesan Panjang di sini...]</p>
+       <button id="btn-ke-page3" style="margin-top:1.5rem; padding:0.7rem 2rem; font-size:1rem; background:#e75480; color:#fff; border:none; border-radius:20px; cursor:pointer;">Lihat Pesan Terakhir</button>
     </div>
   </div>
   <!-- Modal Custom -->
   <div id="modal-root"></div>
+  <!-- Tambahkan page3 di sini -->
+   <div id="page3" style="display:none; min-height:100vh; background:#222; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+    <h2 style="color:#fff; font-size:2.2rem; margin-bottom:1.2rem; text-shadow:0 2px 12px #000;">Pesan Terakhir Untukmu</h2>
+    <p style="font-size:1.2rem; color:#bbb; max-width:480px; text-align:center; background:#2a2a2a; padding:1.2rem 1rem; border-radius:18px; box-shadow:0 4px 24px #0008;"> tanggal 15 september kk nulis ini, mungkin agak aneh tapi semoga kamu bisa mengerti maksudnya. kk cuma mau bilang terima kasih.. , walaupun banyak yg pengen aku sampaikan tapi.. ckp di situ aj lh..  </p>
+    </div>
   <script>
     // ==============================
     // Konfigurasi Placeholder
@@ -690,11 +701,25 @@ Akhirnya, di paragraf penutup ini, kakak mau merangkum semuanya. Kamu adalah pri
       });
     })();
 
-    // ==============================
-    // Catatan:
-    // - Ganti [Nama Penerima], [PasswordRahasia], dan [Pesan Panjang] sesuai kebutuhan.
-    // - Semua logika utama sudah diberi komentar.
-    // ==============================
+   
+    // Tombol ke page3
+    document.addEventListener('DOMContentLoaded', function() {
+      const btnKePage3 = document.getElementById('btn-ke-page3');
+      if (btnKePage3) {
+        btnKePage3.onclick = function() {
+          document.getElementById('page2').style.display = 'none';
+          document.getElementById('page3').style.display = 'flex';
+        };
+      }
+      const btnKembaliPage1 = document.getElementById('btn-kembali-page1');
+      if (btnKembaliPage1) {
+        btnKembaliPage1.onclick = function() {
+          document.getElementById('page3').style.display = 'none';
+          document.getElementById('page1').style.display = 'flex';
+          document.getElementById('page1').style.opacity = '1';
+        };
+      }
+    });
   </script>
 </body>
 </html>
