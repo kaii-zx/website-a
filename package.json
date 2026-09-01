@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "gsap": "^3.15.0",
+    "gsap-trial": "^3.12.7"
+  }
+}
