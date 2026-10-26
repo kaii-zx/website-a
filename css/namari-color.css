@@ -15,7 +15,7 @@
 
 
 body {
-    background:#fff;
+    background:#F9F9F9
 }
 
 
@@ -50,6 +50,16 @@ a:hover, #header.nav-solid nav a:hover {
 /* 2. Navigation */
 /*------------------------------------------------------------------------------------------*/
 
+
+
+/* logo web */
+.logovann {
+  width: auto;
+  max-width: 120px;
+  height: 30px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
 
 /* Transparent Navigation Color on a Banner */
 
